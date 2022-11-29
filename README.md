@@ -4,6 +4,11 @@
 
 Deploy Airflow on Bare-metal with ease
 
+## Prerequisites
+- bash
+- ca-certificates
+- curl
+
 ## Quick Install
 ```shell
 $ curl -H 'Cache-Control: no-cache' -ko - 'https://raw.githubusercontent.com/telkomdev/airflow-aio/main/quick-install.sh' | bash
