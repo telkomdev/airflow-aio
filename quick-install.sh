@@ -70,7 +70,10 @@ install_providers() {
 }
 
 configure_nginx() {
+  systemctl stop nginx
   curl -sko /etc/nginx/sites-available/default https://raw.githubusercontent.com/lutfailham96/airflow-aio/main/nginx/default
+  systemctl start nginx
+  systemctl enable nginx
 }
 
 post_install_airflow() {
