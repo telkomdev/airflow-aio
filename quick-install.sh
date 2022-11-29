@@ -44,7 +44,7 @@ install_instantclient() {
     ca-certificates \
     curl \
     unzip
-  curl -Lo instantclient.zip "https://download.oracle.com/otn_software/linux/instantclient/217000/instantclient-basiclite-linux.x64-${INSTANT_CLIENT_VERSION}.0.0dbru.zip"
+  curl -H 'Cache-Control: no-cache' -Lo instantclient.zip "https://download.oracle.com/otn_software/linux/instantclient/217000/instantclient-basiclite-linux.x64-${INSTANT_CLIENT_VERSION}.0.0dbru.zip"
   sha256_oci="8a745ad7f4290ff8f7bd1d9436f6afdf07644e390b5d6acc3dc50978687795cb"
   echo "${sha256_oci}  instantclient.zip" | sha256sum -c - || exit 1
   unzip instantclient.zip
@@ -71,7 +71,7 @@ install_providers() {
 
 configure_nginx() {
   systemctl stop nginx
-  curl -sko /etc/nginx/sites-available/default https://raw.githubusercontent.com/lutfailham96/airflow-aio/main/nginx/default
+  curl -H 'Cache-Control: no-cache' -sko /etc/nginx/sites-available/default https://raw.githubusercontent.com/lutfailham96/airflow-aio/main/nginx/default
   systemctl start nginx
   systemctl enable nginx
 }
