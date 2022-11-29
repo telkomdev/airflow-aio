@@ -11,3 +11,6 @@ $ curl -H 'Cache-Control: no-cache' -ko - 'https://raw.githubusercontent.com/lut
 Nginx (reverse proxy) : 80 (http)
 Airflow webserver     : 8080 (http)
 ```
+
+## Airflow Configuration
+If you wish to modify & use custom configuration, all Airflow configuration, logs, data are located on `/root/airflow`
