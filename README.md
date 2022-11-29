@@ -14,3 +14,7 @@ Airflow webserver     : 8080 (http)
 
 ## Airflow Configuration
 If you wish to modify & use custom configuration, all Airflow configuration, logs, data are located on `/root/airflow`
+
+
+### Notes
+**Tested running well on Ubuntu 22.04 LTS**
