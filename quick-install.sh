@@ -70,7 +70,7 @@ configure_airflow() {
   # change executor to LocalExecutor
   sed -i 's/executor = SequentialExecutor/executor = LocalExecutor/g' /root/airflow/airflow.cfg
   # update DB engine to mysql
-  sed -i 's/sql_alchemy_conn = sqlite:\/\/\/\/root\/airflow\/airflow.db/sql_alchemy_conn = mysql+mysqldb:\/\/airflow:AirflowDBPass@localhost:3306\/airflow/g' /root/airflow/airflow.cfg
+  sed -i 's/sql_alchemy_conn = sqlite:\/\/\/\/root\/airflow\/airflow.db/sql_alchemy_conn = mysql+mysqldb:\/\/airflow_user:AirflowDBPass@localhost:3306\/airflow_db/g' /root/airflow/airflow.cfg
   # initialize Airflow DB
   airflow db init
   # add Airflow admin user
@@ -89,9 +89,9 @@ install_providers() {
 }
 
 configure_mysql() {
-  mysql -u root -e "CREATE USER 'airflow'@'localhost' IDENTIFIED by 'AirflowDBPass';"
-  mysql -u root -e "CREATE DATABASE airflow;"
-  mysql -u root -e "GRANT ALL PRIVILEGES ON airflow.* TO 'airflow'@'localhost' WITH GRANT OPTION;"
+  mysql -u root -e "CREATE USER 'airflow_user'@'localhost' IDENTIFIED by 'AirflowDBPass';"
+  mysql -u root -e "CREATE DATABASE airflow_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+  mysql -u root -e "GRANT ALL PRIVILEGES ON airflow_db.* TO 'airflow_user'@'localhost';"
 }
 
 configure_nginx() {
