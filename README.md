@@ -4,6 +4,10 @@
 
 Deploy Airflow on Bare-metal with ease
 
+<p align="left">
+  <img style="width: 45rem" src="https://raw.githubusercontent.com/telkomdev/airflow-aio/main/screenshots/airflow-configuration.png" />
+</p>
+
 ## Prerequisites
 - bash
 - ca-certificates
