@@ -20,7 +20,9 @@ install_prerequisites() {
       screen \
       nano \
       tzdata \
-      nginx
+      nginx \
+      mysql-server \
+      libmysqlclient-dev
 }
 
 install_airflow() {
@@ -39,11 +41,11 @@ install_instantclient() {
   PATH="/opt/oracle/instantclient:${PATH}"
   apt-get update -y
   apt-get install -y --no-install-recommends \
-    libaio1
+      libaio1
   apt-get install -y --no-install-recommends \
-    ca-certificates \
-    curl \
-    unzip
+      ca-certificates \
+      curl \
+      unzip
   curl -H 'Cache-Control: no-cache' -Lo instantclient.zip "https://download.oracle.com/otn_software/linux/instantclient/217000/instantclient-basiclite-linux.x64-${INSTANT_CLIENT_VERSION}.0.0dbru.zip"
   sha256_oci="8a745ad7f4290ff8f7bd1d9436f6afdf07644e390b5d6acc3dc50978687795cb"
   echo "${sha256_oci}  instantclient.zip" | sha256sum -c - || exit 1
@@ -60,12 +62,19 @@ configure_airflow() {
   # configure local time
   ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
 
-  # intialize Airflow DB & user
-  airflow db init
-  airflow users  create --role Admin --username admin --email admin --firstname admin --lastname admin --password admin
+  # init airflow workdir
+  airflow version
 
+  # change timezone
+  sed -i 's/default_ui_timezone = UTC/default_ui_timezone = Asia\/Jakarta/g' /root/airflow/airflow.cfg
   # change executor to LocalExecutor
-  #sed -i 's/executor = SequentialExecutor/executor = LocalExecutor/g' /root/airflow/airflow.cfg
+  sed -i 's/executor = SequentialExecutor/executor = LocalExecutor/g' /root/airflow/airflow.cfg
+  # update DB engine to mysql
+  sed -i 's/sql_alchemy_conn = sqlite:\/\/\/\/root\/airflow\/airflow.db/sql_alchemy_conn = mysql+mysqldb:\/\/airflow:AirflowDBPass@localhost:3306\/airflow/g' /root/airflow/airflow.cfg
+  # initialize Airflow DB
+  airflow db init
+  # add Airflow admin user
+  airflow users  create --role Admin --username admin --email admin --firstname admin --lastname admin --password admin
 }
 
 start_airflow() {
@@ -74,7 +83,15 @@ start_airflow() {
 }
 
 install_providers() {
-  pip3 install cx-oracle
+  pip3 install \
+      cx-oracle \
+      mysqlclient
+}
+
+configure_mysql() {
+  mysql -u root -e "CREATE USER 'airflow'@'localhost' IDENTIFIED by 'AirflowDBPass';"
+  mysql -u root -e "CREATE DATABASE airflow;"
+  mysql -u root -e "GRANT ALL PRIVILEGES ON airflow.* TO 'airflow'@'localhost' WITH GRANT OPTION;"
 }
 
 configure_nginx() {
@@ -93,6 +110,7 @@ install_python \
   && install_airflow \
   && install_instantclient \
   && install_providers \
+  && configure_mysql \
   && configure_airflow \
   && start_airflow \
   && configure_nginx \
