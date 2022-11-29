@@ -71,6 +71,8 @@ configure_airflow() {
   sed -i 's/executor = SequentialExecutor/executor = LocalExecutor/g' /root/airflow/airflow.cfg
   # update DB engine to mysql
   sed -i 's/sql_alchemy_conn = sqlite:\/\/\/\/root\/airflow\/airflow.db/sql_alchemy_conn = mysql+mysqldb:\/\/airflow_user:AirflowDBPass@localhost:3306\/airflow_db/g' /root/airflow/airflow.cfg
+  # don't load example
+  sed -i 's/load_examples = True/load_examples = False/g' /root/airflow/airflow.cfg
   # initialize Airflow DB
   airflow db init
   # add Airflow admin user
