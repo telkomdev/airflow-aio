@@ -14,6 +14,13 @@ Deploy Airflow on Bare-metal with ease
 $ curl -H 'Cache-Control: no-cache' -ko - 'https://raw.githubusercontent.com/telkomdev/airflow-aio/main/quick-install.sh' | bash
 ```
 
+## Default Admin User
+```
+role     : Admin
+username : admin
+password : admin
+```
+
 ## Port Configuration
 ```
 Nginx (reverse proxy) : 80 (http)
