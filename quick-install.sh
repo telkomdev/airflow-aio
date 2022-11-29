@@ -87,5 +87,6 @@ install_python \
   && install_providers \
   && configure_airflow \
   && start_airflow \
+  && configure_nginx \
   && post_install_airflow
 
