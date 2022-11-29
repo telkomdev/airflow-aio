@@ -3,5 +3,5 @@ Deploy Airflow on Bare-metal with ease
 
 ## Quick Install
 ```shell
-$ bash -c "$(curl -sko - 'https://github.com/lutfailham96/airflow-aio/new/main/quick-install.sh')"
+$ curl -ko - 'https://raw.githubusercontent.com/lutfailham96/airflow-aio/main/quick-install.sh' | bash
 ```
