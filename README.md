@@ -1,4 +1,7 @@
 # airflow-aio
+[![made-with-bash](https://img.shields.io/badge/Made%20with-Bash-1f425f.svg)](https://www.gnu.org/software/bash/)
+[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/telkomdev/airflow-aio/blob/main/LICENSE)
+
 Deploy Airflow on Bare-metal with ease
 
 ## Quick Install
