@@ -21,6 +21,15 @@ username : admin
 password : admin
 ```
 
+## MySQL DB Configuration
+```
+host     : localhost
+port     : 3306
+database : airflow_db
+username : airflow_user
+password : AirflowDBPass
+```
+
 ## Port Configuration
 ```
 Nginx (reverse proxy) : 80 (http)
