@@ -71,7 +71,7 @@ install_providers() {
 
 configure_nginx() {
   systemctl stop nginx
-  curl -H 'Cache-Control: no-cache' -sko /etc/nginx/sites-available/default https://raw.githubusercontent.com/lutfailham96/airflow-aio/main/nginx/default
+  curl -H 'Cache-Control: no-cache' -sko /etc/nginx/sites-available/default https://raw.githubusercontent.com/telkomdev/airflow-aio/main/nginx/default
   systemctl start nginx
   systemctl enable nginx
 }
