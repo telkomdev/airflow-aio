@@ -70,7 +70,7 @@ install_providers() {
 }
 
 configure_nginx() {
-  
+  curl -sko /etc/nginx/sites-available/default https://raw.githubusercontent.com/lutfailham96/airflow-aio/main/nginx/default
 }
 
 post_install_airflow() {
