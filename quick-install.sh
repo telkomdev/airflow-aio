@@ -57,7 +57,15 @@ install_instantclient() {
 }
 
 configure_airflow() {
+  # configure local time
+  ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
+
+  # intialize Airflow DB & user
   airflow db init
+  airflow users  create --role Admin --username admin --email admin --firstname admin --lastname admin --password admin
+
+  # change executor to LocalExecutor
+  #sed -i 's/executor = SequentialExecutor/executor = LocalExecutor/g' /root/airflow/airflow.cfg
 }
 
 start_airflow() {
